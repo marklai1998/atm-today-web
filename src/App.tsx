@@ -27,12 +27,12 @@ export const App = () => {
         new window.google.maps.Map(ref.current, {
           center,
           zoom,
+          clickableIcons: false,
+          disableDefaultUI: true,
         })
       )
     }
   }, [ref, map])
-
-  console.log(atmList)
 
   return (
     <Box h="100vh" w="100vw" ref={ref} id="map">
