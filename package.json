@@ -22,7 +22,7 @@
     "@googlemaps/js-api-loader": "^1.16.2",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@tanstack/react-query": "5.8.3",
-    "@tanstack/react-router": "0.0.1-beta.211",
+    "@tanstack/react-router": "0.0.1-beta.260",
     "framer-motion": "10.16.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
