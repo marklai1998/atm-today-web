@@ -36,16 +36,20 @@ export const App = () => {
 
   return (
     <Box h="100vh" w="100vw" ref={ref} id="map">
-      {atmList.map(({ item_id, latitude, longitude }) => (
-        <Marker
-          key={item_id}
-          position={{
-            lat: Number(latitude),
-            lng: Number(longitude),
-          }}
-          map={map}
-        />
-      ))}
+      {atmList.map(atm => {
+        const { item_id, latitude, longitude } = atm
+        return (
+          <Marker
+            key={item_id}
+            position={{
+              lat: Number(latitude),
+              lng: Number(longitude),
+            }}
+            map={map}
+            atm={atm}
+          />
+        )
+      })}
     </Box>
   )
 }
