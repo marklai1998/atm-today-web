@@ -20,10 +20,12 @@ export const App = () => {
 
   useEffect(() => {
     const fn = async () => {
-      const { banks } = await listBank()
-      setBanks(banks)
+      const [{ banks }, { districts }] = await Promise.all([
+        listBank(),
+        listDistrict(),
+      ])
 
-      const { districts } = await listDistrict()
+      setBanks(banks)
       setDistricts(districts)
     }
     fn()
