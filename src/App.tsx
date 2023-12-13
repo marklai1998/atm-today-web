@@ -57,23 +57,18 @@ export const App = () => {
         w="50"
         top="4"
         left="4"
-        flexDirection="column"
         gap="2"
         zIndex="1"
+        px="2"
+        bg="white"
+        borderWidth="2px"
+        borderRadius="md"
       >
-        <Input
-          bg="white"
-          size="sm"
-          placeholder="address"
-          value={address}
-          onChange={e => {
-            setAddress(e.target.value)
-          }}
-        />
         <Select
-          bg="white"
           size="sm"
           placeholder="District"
+          variant="flushed"
+          border="0"
           value={district}
           onChange={e => {
             setDistrict(e.target.value)
@@ -86,9 +81,10 @@ export const App = () => {
           ))}
         </Select>
         <Select
-          bg="white"
           size="sm"
           placeholder="Bank"
+          variant="flushed"
+          border="0"
           value={bankName}
           onChange={e => {
             setBankName(e.target.value)
@@ -100,6 +96,16 @@ export const App = () => {
             </option>
           ))}
         </Select>
+        <Input
+          size="sm"
+          placeholder="Address"
+          variant="flushed"
+          border="0"
+          value={address}
+          onChange={e => {
+            setAddress(e.target.value)
+          }}
+        />
       </Flex>
       <Box h="100vh" w="100vw" ref={ref} id="map">
         {atms.map(atm => {
