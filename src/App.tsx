@@ -43,6 +43,7 @@ export const App = () => {
         left="4"
         flexDirection="column"
         gap="2"
+        zIndex="1"
       >
         <Input
           bg="white"
