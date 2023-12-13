@@ -25,7 +25,7 @@ export const listDistrict = () => {
 
     xhr.open(
       'GET',
-      `${import.meta.env.VITE_API_BASE}/AWTD/api/v1/GetBankLists.php`
+      `${import.meta.env.VITE_API_BASE}/AWTD/api/v1/GetDistrictLists.php`
     )
     xhr.responseType = 'json'
 
