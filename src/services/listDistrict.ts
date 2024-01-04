@@ -1,3 +1,5 @@
+import { formatParams } from '../utils/formatParams'
+
 export type District = string
 
 type ListDistrictsResponse = {
@@ -6,7 +8,7 @@ type ListDistrictsResponse = {
   districts: District[]
 }
 
-export const listDistrict = () => {
+export const listDistrict = ({ language }: { language: string }) => {
   // return {
   //   success: true,
   //   message: 'Data received.',
@@ -25,7 +27,9 @@ export const listDistrict = () => {
 
     xhr.open(
       'GET',
-      `${import.meta.env.VITE_API_BASE}/AWTD/api/v1/GetDistrictLists.php`
+      `${
+        import.meta.env.VITE_API_BASE
+      }/AWTD/api/v1/GetDistrictLists.php${formatParams({ lan: language })}`
     )
     xhr.responseType = 'json'
 

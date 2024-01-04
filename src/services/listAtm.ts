@@ -21,10 +21,12 @@ export const listAtm = ({
   district,
   bankName,
   address,
+  language,
 }: {
   district?: string
   bankName?: string
   address?: string
+  language: string
 }) => {
   // return {
   //   success: true,
@@ -66,6 +68,7 @@ export const listAtm = ({
         district,
         bank_name: bankName,
         address,
+        lan: language,
       })}`
     )
     xhr.responseType = 'json'

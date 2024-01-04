@@ -1,3 +1,5 @@
+import { formatParams } from '../utils/formatParams'
+
 export type Bank = string
 
 type ListBankResponse = {
@@ -6,7 +8,7 @@ type ListBankResponse = {
   banks: Bank[]
 }
 
-export const listBank = () => {
+export const listBank = ({ language }: { language: string }) => {
   // return {
   //   success: true,
   //   message: 'Data received.',
@@ -23,7 +25,9 @@ export const listBank = () => {
 
     xhr.open(
       'GET',
-      `${import.meta.env.VITE_API_BASE}/AWTD/api/v1/GetBankLists.php`
+      `${
+        import.meta.env.VITE_API_BASE
+      }/AWTD/api/v1/GetBankLists.php${formatParams({ lan: language })}`
     )
     xhr.responseType = 'json'
 

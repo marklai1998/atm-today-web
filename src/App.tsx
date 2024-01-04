@@ -17,27 +17,33 @@ export const App = () => {
   const [district, setDistrict] = useState<string>()
   const [address, setAddress] = useState<string>()
   const [bankName, setBankName] = useState<string>()
+  const [language, setLanguage] = useState<string>('en')
 
   useEffect(() => {
     const fn = async () => {
       const [{ banks }, { districts }] = await Promise.all([
-        listBank(),
-        listDistrict(),
+        listBank({ language }),
+        listDistrict({ language }),
       ])
 
       setBanks(banks)
       setDistricts(districts)
     }
     fn()
-  }, [])
+  }, [language])
 
   useEffect(() => {
     const fn = async () => {
-      const { latest_record } = await listAtm({ district, address, bankName })
+      const { latest_record } = await listAtm({
+        district,
+        address,
+        bankName,
+        language,
+      })
       setAtms(latest_record)
     }
     fn()
-  }, [district, address, bankName])
+  }, [district, address, bankName, language])
 
   useEffect(() => {
     if (ref.current && !map) {
@@ -108,6 +114,33 @@ export const App = () => {
             setAddress(e.target.value)
           }}
         />
+      </Flex>
+
+      <Flex
+        position="fixed"
+        top="4"
+        right="4"
+        zIndex="1"
+        px="2"
+        bg="white"
+        borderWidth="2px"
+        borderRadius="md"
+        w="20"
+      >
+        <Select
+          size="sm"
+          placeholder="Language"
+          variant="flushed"
+          border="0"
+          value={language}
+          onChange={e => {
+            if (e.target.value) setLanguage(e.target.value)
+          }}
+        >
+          <option value="en">En</option>
+          <option value="sc">Sc</option>
+          <option value="tc">Tc</option>
+        </Select>
       </Flex>
       <Box h="100vh" w="100vw" ref={ref} id="map">
         {atms.map(atm => {
