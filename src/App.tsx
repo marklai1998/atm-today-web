@@ -151,7 +151,13 @@ export const App = () => {
           onClick={onOpen}
         />
       </Flex>
-      <AdminDrawer onClose={onClose} isOpen={isOpen} language={language} />
+      <AdminDrawer
+        onClose={onClose}
+        isOpen={isOpen}
+        language={language}
+        banks={banks}
+        districts={districts}
+      />
       <Box h="100vh" w="100vw" ref={ref} id="map">
         {atms.map(atm => {
           const { item_id, latitude, longitude } = atm
