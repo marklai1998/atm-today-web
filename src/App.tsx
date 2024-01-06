@@ -1,9 +1,18 @@
-import { Box, Flex, Input, Select } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  Select,
+  useDisclosure,
+} from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { Atm, listAtm } from './services/listAtm'
 import { Marker } from './Marker'
 import { Bank, listBank } from './services/listBank'
 import { District, listDistrict } from './services/listDistrict'
+import { EditIcon } from '@chakra-ui/icons'
+import { AdminDrawer } from './AdminDrawer'
 const center = { lat: 22.3316025, lng: 114.12776 }
 const zoom = 12
 export const App = () => {
@@ -11,6 +20,7 @@ export const App = () => {
   const [map, setMap] = useState<google.maps.Map>()
   const [banks, setBanks] = useState<Bank[]>([])
   const [districts, setDistricts] = useState<District[]>([])
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [atms, setAtms] = useState<Atm[]>([])
 
@@ -115,33 +125,33 @@ export const App = () => {
           }}
         />
       </Flex>
-
-      <Flex
-        position="fixed"
-        top="4"
-        right="4"
-        zIndex="1"
-        px="2"
-        bg="white"
-        borderWidth="2px"
-        borderRadius="md"
-        w="20"
-      >
-        <Select
-          size="sm"
-          placeholder="Language"
-          variant="flushed"
-          border="0"
-          value={language}
-          onChange={e => {
-            if (e.target.value) setLanguage(e.target.value)
-          }}
-        >
-          <option value="en">En</option>
-          <option value="sc">Sc</option>
-          <option value="tc">Tc</option>
-        </Select>
+      <Flex position="fixed" top="4" right="4" zIndex="1" gap="2">
+        <Box bg="white" borderWidth="2px" borderRadius="md" w="20" px="2">
+          <Select
+            size="sm"
+            placeholder="Language"
+            variant="flushed"
+            border="0"
+            value={language}
+            onChange={e => {
+              if (e.target.value) setLanguage(e.target.value)
+            }}
+          >
+            <option value="en">En</option>
+            <option value="sc">Sc</option>
+            <option value="tc">Tc</option>
+          </Select>
+        </Box>
+        <IconButton
+          aria-label="Admin"
+          icon={<EditIcon />}
+          variant="outline"
+          borderWidth="2px"
+          bg="white"
+          onClick={onOpen}
+        />
       </Flex>
+      <AdminDrawer onClose={onClose} isOpen={isOpen} />
       <Box h="100vh" w="100vw" ref={ref} id="map">
         {atms.map(atm => {
           const { item_id, latitude, longitude } = atm
