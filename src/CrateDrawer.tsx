@@ -17,6 +17,8 @@ import { useCallback, useState } from 'react'
 import { createAtm } from './services/createAtm'
 import { Bank } from './services/listBank'
 import { District } from './services/listDistrict'
+import { Atm } from './services/listAtm'
+import { updateAtm } from './services/updateAtm'
 
 export const CreateDrawer = ({
   onClose,
@@ -24,20 +26,28 @@ export const CreateDrawer = ({
   language,
   banks,
   districts,
+  atm,
 }: {
   onClose: () => void
   isOpen: boolean
   language: string
   banks: Bank[]
   districts: District[]
+  atm?: Atm
 }) => {
-  const [lat, setLat] = useState<number>()
-  const [long, setLong] = useState<number>()
-  const [district, setDistrict] = useState<string>()
-  const [bankName, setBankName] = useState<string>()
-  const [address, setAddress] = useState<string>()
-  const [type, setType] = useState<string>()
-  const [serviceHours, setServiceHours] = useState<string>()
+  const [lat, setLat] = useState<number | undefined>(
+    atm ? Number(atm.latitude) : undefined
+  )
+  const [long, setLong] = useState<number | undefined>(
+    atm ? Number(atm.longitude) : undefined
+  )
+  const [district, setDistrict] = useState<string | undefined>(atm?.district)
+  const [bankName, setBankName] = useState<string | undefined>(atm?.bank_name)
+  const [address, setAddress] = useState<string | undefined>(atm?.address)
+  const [type, setType] = useState<string | undefined>(atm?.type_of_machine)
+  const [serviceHours, setServiceHours] = useState<string | undefined>(
+    atm?.service_hours
+  )
 
   const create = useCallback(async () => {
     if (
@@ -52,15 +62,28 @@ export const CreateDrawer = ({
       return
     }
     try {
-      await createAtm(language, {
-        latitude: String(lat),
-        longitude: String(long),
-        district,
-        bank_name: bankName,
-        address,
-        type_of_machine: type,
-        service_hours: serviceHours,
-      })
+      if (atm) {
+        await updateAtm(language, {
+          item_id: atm.item_id,
+          latitude: String(lat),
+          longitude: String(long),
+          district,
+          bank_name: bankName,
+          address,
+          type_of_machine: type,
+          service_hours: serviceHours,
+        })
+      } else {
+        await createAtm(language, {
+          latitude: String(lat),
+          longitude: String(long),
+          district,
+          bank_name: bankName,
+          address,
+          type_of_machine: type,
+          service_hours: serviceHours,
+        })
+      }
     } finally {
       onClose()
     }
@@ -71,7 +94,7 @@ export const CreateDrawer = ({
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
-        <DrawerHeader>Create ATM</DrawerHeader>
+        <DrawerHeader>{atm ? 'Update ATM' : 'Create ATM'}</DrawerHeader>
         <DrawerBody>
           <form
             id="my-form"

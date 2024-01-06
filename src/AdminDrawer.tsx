@@ -24,6 +24,7 @@ import { deleteAtm } from './services/deleteAtm'
 import { CreateDrawer } from './CrateDrawer'
 import { Bank } from './services/listBank'
 import { District } from './services/listDistrict'
+import { UpdateButton } from './UpdateButton'
 
 export const AdminDrawer = ({
   onClose,
@@ -106,8 +107,8 @@ export const AdminDrawer = ({
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {atms.map(
-                    ({
+                  {atms.map(atm => {
+                    const {
                       item_id,
                       latitude,
                       longitude,
@@ -116,7 +117,8 @@ export const AdminDrawer = ({
                       type_of_machine,
                       address,
                       service_hours,
-                    }) => (
+                    } = atm
+                    return (
                       <Tr key={item_id}>
                         <Td>
                           <IconButton
@@ -127,6 +129,13 @@ export const AdminDrawer = ({
                             onClick={() => {
                               deleteItem({ id: item_id })
                             }}
+                          />
+                          <UpdateButton
+                            atm={atm}
+                            onClose={list}
+                            banks={banks}
+                            districts={districts}
+                            language={language}
                           />
                         </Td>
                         <Td>{item_id}</Td>
@@ -139,7 +148,7 @@ export const AdminDrawer = ({
                         <Td>{service_hours}</Td>
                       </Tr>
                     )
-                  )}
+                  })}
                 </Tbody>
               </Table>
             </TableContainer>
