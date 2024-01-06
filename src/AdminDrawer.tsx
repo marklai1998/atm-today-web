@@ -5,8 +5,8 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  IconButton,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -15,7 +15,9 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { Atm, listAtm } from './services/listAtm'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { DeleteIcon } from '@chakra-ui/icons'
+import { deleteAtm } from './services/deleteAtm'
 
 export const AdminDrawer = ({
   onClose,
@@ -28,15 +30,21 @@ export const AdminDrawer = ({
 }) => {
   const [atms, setAtms] = useState<Atm[]>([])
 
-  useEffect(() => {
-    const fn = async () => {
-      const { latest_record } = await listAtm({
-        language,
-      })
-      setAtms(latest_record)
-    }
-    fn()
+  const list = useCallback(async () => {
+    const { latest_record } = await listAtm({
+      language,
+    })
+    setAtms(latest_record)
   }, [language])
+
+  useEffect(() => {
+    list()
+  }, [list])
+
+  const deleteItem = useCallback(async ({ id }: { id: string }) => {
+    await deleteAtm({ id })
+    await list()
+  }, [])
 
   return (
     <Drawer onClose={onClose} isOpen={isOpen} size="full">
@@ -49,6 +57,7 @@ export const AdminDrawer = ({
             <Table variant="simple" size="sm">
               <Thead>
                 <Tr>
+                  <Th></Th>
                   <Th isNumeric>Id</Th>
                   <Th isNumeric>Lat</Th>
                   <Th isNumeric>Long</Th>
@@ -72,6 +81,17 @@ export const AdminDrawer = ({
                     service_hours,
                   }) => (
                     <Tr key={item_id}>
+                      <Td>
+                        <IconButton
+                          aria-label="delete"
+                          size="sm"
+                          variant="link"
+                          icon={<DeleteIcon />}
+                          onClick={() => {
+                            deleteItem({ id: item_id })
+                          }}
+                        />
+                      </Td>
                       <Td>{item_id}</Td>
                       <Td>{latitude}</Td>
                       <Td>{longitude}</Td>
