@@ -46,7 +46,7 @@ export const AdminDrawer = ({
         <DrawerHeader>Admin</DrawerHeader>
         <DrawerBody>
           <TableContainer>
-            <Table variant="simple">
+            <Table variant="simple" size="sm">
               <Thead>
                 <Tr>
                   <Th isNumeric>Id</Th>
@@ -72,6 +72,7 @@ export const AdminDrawer = ({
                     service_hours,
                   }) => (
                     <Tr key={item_id}>
+                      <Td>{item_id}</Td>
                       <Td>{latitude}</Td>
                       <Td>{longitude}</Td>
                       <Td>{district}</Td>
