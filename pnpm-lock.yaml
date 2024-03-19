@@ -36,7 +36,7 @@ dependencies:
 devDependencies:
   '@types/google.maps':
     specifier: ^3.54.10
-    version: 3.55.4
+    version: 3.55.5
   '@types/react':
     specifier: 18.2.67
     version: 18.2.67
@@ -1920,8 +1920,8 @@ packages:
       '@babel/types': 7.23.6
     dev: true
 
-  /@types/google.maps@3.55.4:
-    resolution: {integrity: sha512-Ip3IfRs3RZjeC88V8FGnWQTQXeS5gkJedPSosN6DMi9Xs8buGTpsPq6UhREoZsGH+62VoQ6jiRBUR8R77If69w==}
+  /@types/google.maps@3.55.5:
+    resolution: {integrity: sha512-U1QwCo1GeeLm0YI/GoHvfd1VfwgnoUSBcKCMXXFAM+2izSSuqqwZUJ9XNO6NxZxmYKjBNI+NF5eGF6uUSb1aSg==}
     dev: true
 
   /@types/lodash.mergewith@4.6.7:
