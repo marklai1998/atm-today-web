@@ -39,7 +39,7 @@ export const App = () => {
       setBanks(banks)
       setDistricts(districts)
     }
-    fn()
+    void fn()
   }, [language])
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const App = () => {
       })
       setAtms(latest_record)
     }
-    fn()
+    void fn()
   }, [district, address, bankName, language])
 
   useEffect(() => {
