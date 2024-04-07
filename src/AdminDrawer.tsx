@@ -55,7 +55,7 @@ export const AdminDrawer = ({
   }, [language])
 
   useEffect(() => {
-    list()
+    void list()
   }, [list])
 
   const deleteItem = useCallback(async ({ id }: { id: string }) => {
@@ -68,7 +68,7 @@ export const AdminDrawer = ({
       <CreateDrawer
         onClose={() => {
           onCreateDrawerClose()
-          list()
+          void list()
         }}
         isOpen={isCreateDrawerOpen}
         language={language}
@@ -127,7 +127,7 @@ export const AdminDrawer = ({
                             variant="link"
                             icon={<DeleteIcon />}
                             onClick={() => {
-                              deleteItem({ id: item_id })
+                              void deleteItem({ id: item_id })
                             }}
                           />
                           <UpdateButton

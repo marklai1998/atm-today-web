@@ -20,14 +20,14 @@ export const Marker: FC<google.maps.MarkerOptions & { atm: Atm }> = ({
         '</div>' +
         '</div>'
 
-      const infowindow = new google.maps.InfoWindow({
+      const infoWindow = new google.maps.InfoWindow({
         content: contentString,
       })
 
       const marker = new google.maps.Marker()
 
       marker.addListener('click', () => {
-        infowindow.open({
+        infoWindow.open({
           anchor: marker,
           map: options.map,
         })

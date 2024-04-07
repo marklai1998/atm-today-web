@@ -100,7 +100,7 @@ export const CreateDrawer = ({
             id="my-form"
             onSubmit={e => {
               e.preventDefault()
-              create()
+              void create()
             }}
           >
             <Box mb="2">
